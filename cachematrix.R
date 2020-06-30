@@ -13,17 +13,17 @@
 setwd('E:/06.Education/Course Project #2')
 
 makeCacheMatrix <- function(x = matrix()) {
-        s <- NULL
+        inv <- NULL
         set <- function(y) {
                 x <<- y
-                s <<- NULL
+                inv <<- NULL
         }
         get <- function() x
-        setsolve <- function(solve) s <<- solve
-        getsolve <- function() s
+        setinverse <- function(solve) inv <<- solve
+        getinverse <- function() inv
         list(set = set, get = get,
-             setsolve = setsolve,
-             getsolve = getsolve)
+             setinverse = setinverse,
+             getinverse = getinverse)
 }
 
 
@@ -33,14 +33,14 @@ makeCacheMatrix <- function(x = matrix()) {
 ## matrix has not changed), then it should retrieve the inverse from the cache.
 
 cacheSolve <- function(x, ...) {
-        s <- x$getsolve()
-        if(!is.null(s)) {
+        inv <- x$getinverse()
+        if(!is.null(inv)) {
                 message("getting cached data")
-                return(s)
+                return(inv)
         }
         data <- x$get()
         s <- solve(data, ...)
-        x$setsolve(s)
-        s
+        x$setinverse(inv)
+        inv
         ## Return a matrix that is the inverse of 'x'
 }
